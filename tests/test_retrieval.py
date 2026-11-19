@@ -12,3 +12,9 @@ def test_context_includes_source():
 
 def test_empty_corpus():
     assert retrieve("question", documents=[]) == []
+
+# Ensure queries about topics outside the knowledge base return no documents
+    # rather than weak, incidental keyword matches (e.g., the shared word "clinic").
+def test_unsupported_question_returns_no_documents():
+    hits = retrieve("Does the clinic provide free transportation?", k=2)
+    assert hits == []
